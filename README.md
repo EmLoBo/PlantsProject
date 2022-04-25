@@ -8,4 +8,4 @@ For logdIn users app shows *WeatherAlerts* f.e. :
 - "Is frost! Cover your plants"
 - "Temp is hight! To water your plants in the evening!
 
-App also contains *EkoCalendar* based on moon phase. User can check what to do and when to do to have more beautifule garden.
+App also contains *EkoCalendar* based on moon phase. User can check what to do and when to do to have more beautifull garden.
