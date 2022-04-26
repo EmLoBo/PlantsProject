@@ -86,11 +86,12 @@ public class PlantsController {
             model.addAttribute("yourLon", yourLon);
             model.addAttribute("gardenerAlert", gardenerAlert);
             model.addAttribute("firstName", firstName);
+            model.addAttribute("userEmail", new Emails());
 
             return "plantsStart";
         } else {
 
-            model.addAttribute("userEmail", new Emails());
+
             return "plantsStartEmpty";
         }
 
