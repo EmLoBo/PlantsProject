@@ -98,8 +98,11 @@ public class PlantsController {
     }
 
     @PostMapping("")
-    public String getUserEmail(@RequestParam Emails email, Model model) {
-        emailRepository.save(email);
+    public String getUserEmail(@RequestParam String userEmail, Model model) {
+        Emails emails = new Emails();
+        emails.setName(userEmail);
+
+        emailRepository.save(emails);
         return "plantsStart";
     }
 
@@ -208,10 +211,13 @@ public class PlantsController {
     @GetMapping("/calendar")
     public String calendar() {
         int month = LocalDate.now().getMonthValue();
-        int day = LocalDate.now().getDayOfMonth();   //poprawna data
+        int day = LocalDate.now().getDayOfMonth();
 
-//        int day = ZonedDateTime.now().plus(Period.ofDays(143)).getDayOfMonth(); //do testowania
+//        int day = ZonedDateTime.now().plus(Period.ofDays(143)).getDayOfMonth(); //testing date
 //        int month = ZonedDateTime.now().plus(Period.ofDays(143)).getMonthValue();
+
+        // This code id based on https://wydawnictwogaj.pl/produkt/ekologiczny-poradnik-ksiezycowy-2022/
+        //this periods correlate with moon phases. And there is bulb period, leaf period, crop period and fruit period.
 
         if (month <= 6 && day <= 9) {
             return "redirect:/plants/leaf";
@@ -278,6 +284,8 @@ public class PlantsController {
 
     @GetMapping("/userCalendar")
     public String userCalendar(@RequestParam String userDate, Model model) {
+        // This code id based on https://wydawnictwogaj.pl/produkt/ekologiczny-poradnik-ksiezycowy-2022/
+        //this periods correlate with moon phases. And there is bulb period, leaf period, crop period and fruit period.
 
         LocalDate userDate1 = LocalDate.parse(userDate);
         int month = userDate1.getMonthValue();
