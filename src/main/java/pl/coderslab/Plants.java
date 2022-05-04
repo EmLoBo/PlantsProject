@@ -37,13 +37,5 @@ public class Plants {
     private Soil soil;
 
 
-//name -czy nie zrobić jeszcze nazwy łacińskiej
-    //category- bylina,trawa/krzew/drzewp
-    //size- niska,średni, wysoka (drzewo zawsze wysoka)
-    //soil- kwaśna/zasadowa/budowlan
-    //place- słoneczne,polcieniste, cieniste
-
-
-
 
 }

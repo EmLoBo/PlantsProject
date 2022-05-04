@@ -22,4 +22,3 @@ public class Category {
 }
 
 
-//bylina/ trawa/ krzew/drzewo

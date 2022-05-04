@@ -216,6 +216,7 @@ public class PlantsController {
 //        int day = ZonedDateTime.now().plus(Period.ofDays(143)).getDayOfMonth(); //testing date
 //        int month = ZonedDateTime.now().plus(Period.ofDays(143)).getMonthValue();
 
+
         // This code id based on https://wydawnictwogaj.pl/produkt/ekologiczny-poradnik-ksiezycowy-2022/
         //this periods correlate with moon phases. And there is bulb period, leaf period, crop period and fruit period.
 
