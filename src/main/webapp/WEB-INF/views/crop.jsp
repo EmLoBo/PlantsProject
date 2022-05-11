@@ -74,7 +74,7 @@
 <section class="showcase">
     <div class="container-fluid p-0">
 
-        <h2 class="mb-5 text-center"><a href="<c:url value="/plants/bulb"/>">Poprzednia kwadra</a> ~~~Kwadra Uprawy ~~~
+        <h2 class="mb-5 text-center"><a href="<c:url value="/plants/bulb"/>">Poprzednia kwadra</a> &nbsp; &nbsp;&nbsp;Uprawy &nbsp;&nbsp;&nbsp;
             <a href="<c:url value="/plants/leaf"/>">Kolejna kwadra</a></h2>
         <form>
             <p class="mb-5 text-center" id="min" name="min">Kwadra uprawy będzie trwała od: ${min}</p>

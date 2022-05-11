@@ -68,7 +68,7 @@
 <section class="showcase">
     <div class="container-fluid p-0">
 
-        <h2 class="mb-5 text-center"><a href="<c:url value="/plants/crop"/>">Poprzednia kwadra</a>    ~~~Kwadra Liścia ~~~   <a href="<c:url value="/plants/fruit"/>">Kolejna kwadra</a></h2>
+        <h2 class="mb-5 text-center"><a href="<c:url value="/plants/crop"/>">Poprzednia kwadra</a>    &nbsp;&nbsp;&nbsp;Kwadra Liścia &nbsp;&nbsp;&nbsp;  <a href="<c:url value="/plants/fruit"/>">Kolejna kwadra</a></h2>
 
         <div class="row g-0">
 
