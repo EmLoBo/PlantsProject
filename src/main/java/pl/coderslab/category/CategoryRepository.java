@@ -5,8 +5,7 @@ import pl.coderslab.category.Category;
 
 
 public interface CategoryRepository extends JpaRepository<Category, String> {
-
-    Category findByName(String name);
+   Category findByName(String name);
     Category findById(Long Id);
 
 }

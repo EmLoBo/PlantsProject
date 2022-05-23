@@ -65,20 +65,8 @@ public class PlantsController {
 
             Double yourWind = tempAndWind.getWind().getSpeed();
             Double yourTemp = tempAndWind.getMain().getTemp();
-            String drought = "Susza! Wieczorem podlej rośliny!!";
-            String frost = "Przymrozek! Okryj delikatne rośliny!";
-            String strongWind = "Mocny wiatr! Nie siej!";
-            String gardenerAlert = "";
-            if (yourTemp > 25.0) {
-                gardenerAlert = drought;
-            } else if (yourTemp < 0) {
-                gardenerAlert = frost;
-            } else if (yourWind > 20) {
-                gardenerAlert = strongWind;
-            } else {
-                gardenerAlert = "Wiatr i temperatura w normie, dbaj o ogród jak zwykle";
-            }
 
+            String gardenerAlert= tempAndWind.GardenerAllert(yourWind, yourTemp);
 
             model.addAttribute("yourWind", yourWind);
             model.addAttribute("yourTemp", yourTemp);

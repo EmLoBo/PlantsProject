@@ -63,7 +63,8 @@ public class LoginController {
 
     @PostMapping("/register")
     public String createUser(@Valid User user, BindingResult result, Model model) {
-       if(result.hasErrors()){
+
+       if(result.hasErrors() ) {
 
            return "admin/register";
        }
