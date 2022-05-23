@@ -78,7 +78,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
-    public String logout(@AuthenticationPrincipal CurrentUser customUser) {
+    public String logout(@AuthenticationPrincipal CurrentUser customUser, Model model) {
         User entityUser = customUser.getUser();
         entityUser.getUsername();
         entityUser.setEnabled(0);

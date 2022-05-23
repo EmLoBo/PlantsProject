@@ -62,7 +62,6 @@ public class PlantsController {
             TempAndWind tempAndWind = restTemplate.getForObject(
                     "https://fcc-weather-api.glitch.me/api/current?lat=" + yourLon + "&lon=" + yourLat, TempAndWind.class);
 
-
             Double yourWind = tempAndWind.getWind().getSpeed();
             Double yourTemp = tempAndWind.getMain().getTemp();
 
@@ -74,12 +73,12 @@ public class PlantsController {
             model.addAttribute("yourLon", yourLon);
             model.addAttribute("gardenerAlert", gardenerAlert);
             model.addAttribute("firstName", firstName);
-            model.addAttribute("userEmail", new Emails());
+
 
             return "plantsStart";
         } else {
 
-
+            model.addAttribute("userEmail", new Emails());
             return "plantsStartEmpty";
         }
 
@@ -91,6 +90,7 @@ public class PlantsController {
         emails.setName(userEmail);
 
         emailRepository.save(emails);
+
         return "plantsStart";
     }
 
