@@ -34,7 +34,6 @@ public class PlantsController {
     private SoilRepository soilRepository;
     private final Validator validator;
     private final EmailRepository emailRepository;
-
     private final UserRepository userRepository;
 
 
@@ -54,35 +53,16 @@ public class PlantsController {
     public String plantsStart(@AuthenticationPrincipal CurrentUser customUser, RestTemplate restTemplate, Model model) throws Exception {
 
         if (customUser != null) {
-            User entityUser = customUser.getUser();
-            String yourLat = entityUser.getLatitude();
-            String yourLon = entityUser.getLongitude();
-            String firstName = entityUser.getFirstName();
-
-            TempAndWind tempAndWind = restTemplate.getForObject(
-                    "https://fcc-weather-api.glitch.me/api/current?lat=" + yourLon + "&lon=" + yourLat, TempAndWind.class);
-
-            Double yourWind = tempAndWind.getWind().getSpeed();
-            Double yourTemp = tempAndWind.getMain().getTemp();
-
-            String gardenerAlert= tempAndWind.GardenerAllert(yourWind, yourTemp);
-
-            model.addAttribute("yourWind", yourWind);
-            model.addAttribute("yourTemp", yourTemp);
-            model.addAttribute("yourLat", yourLat);
-            model.addAttribute("yourLon", yourLon);
-            model.addAttribute("gardenerAlert", gardenerAlert);
-            model.addAttribute("firstName", firstName);
-
-
+            userWeather(customUser, restTemplate, model);
             return "plantsStart";
         } else {
-
             model.addAttribute("userEmail", new Emails());
             return "plantsStartEmpty";
         }
 
     }
+
+
 
     @PostMapping("")
     public String getUserEmail(@RequestParam String userEmail, Model model) {
@@ -201,47 +181,8 @@ public class PlantsController {
         int month = LocalDate.now().getMonthValue();
         int day = LocalDate.now().getDayOfMonth();
 
-//        int day = ZonedDateTime.now().plus(Period.ofDays(143)).getDayOfMonth(); //testing date
-//        int month = ZonedDateTime.now().plus(Period.ofDays(143)).getMonthValue();
-
-
-        // This code id based on https://wydawnictwogaj.pl/produkt/ekologiczny-poradnik-ksiezycowy-2022/
-        //this periods correlate with moon phases. And there is bulb period, leaf period, crop period and fruit period.
-
-        if (month <= 6 && day <= 9) {
-            return "redirect:/plants/leaf";
-        }
-        if (month <= 6 && day > 9 && day <= 18) {
-            return "redirect:/plants/fruit";
-        }
-        if (month <= 6 && day > 18 && day <= 24) {
-            return "redirect:/plants/bulb";
-        }
-        if (month <= 6 && day > 24 && day <= 31) {
-
-            return "redirect:/plants/crop";
-        }
-        if (month >= 7 && month <= 10 && (day <= 5 || day > 27)) {
-            return "redirect:/plants/leaf";
-        }
-        if (month >= 7 && month <= 10 && (day > 5 && day <= 11)) {
-            return "redirect:/plants/fruit";
-        }
-        if ((month >= 7 && month <= 10) && (day > 11 && day <= 18)) {
-            return "redirect:/plants/bulb";
-        }
-        if (month == 11 || month == 12 && day <= 10) {
-            return "redirect:/plants/fruit";
-        }
-        if (month == 11 || month == 12 && day > 10 && day <= 16) {
-            return "redirect:/plants/bulb";
-        }
-        if (month == 11 || month == 12 && day > 16 && day <= 25) {
-            return "redirect:/plants/crop";
-        }
-        if (month == 11 || month == 12 && day > 25) {
-            return "redirect:/plants/leaf";
-        }
+        String x = moonCalendar(month, day);
+        if (x != null) return x;
 
         return null;
     }
@@ -280,7 +221,15 @@ public class PlantsController {
         int month = userDate1.getMonthValue();
         int day = userDate1.getDayOfMonth();
 
+        String x = moonCalendar(month, day);
+        if (x != null) return x;
 
+        return null;
+    }
+
+    private String moonCalendar(int month, int day) {
+        // This code id based on https://wydawnictwogaj.pl/produkt/ekologiczny-poradnik-ksiezycowy-2022/
+        //this periods correlate with moon phases. And there is bulb period, leaf period, crop period and fruit period.
         if (month <= 6 && day <= 9) {
             return "redirect:/plants/leaf";
         }
@@ -291,6 +240,7 @@ public class PlantsController {
             return "redirect:/plants/bulb";
         }
         if (month <= 6 && day > 24 && day <= 31) {
+
             return "redirect:/plants/crop";
         }
         if (month >= 7 && month <= 10 && (day <= 5 || day > 27)) {
@@ -314,9 +264,28 @@ public class PlantsController {
         if (month == 11 || month == 12 && day > 25) {
             return "redirect:/plants/leaf";
         }
-
         return null;
     }
+    private void userWeather(CurrentUser customUser, RestTemplate restTemplate, Model model) {
+        User entityUser = customUser.getUser();
+        String yourLat = entityUser.getLatitude();
+        String yourLon = entityUser.getLongitude();
+        String firstName = entityUser.getFirstName();
 
+        TempAndWind tempAndWind = restTemplate.getForObject(
+                "https://fcc-weather-api.glitch.me/api/current?lat=" + yourLon + "&lon=" + yourLat, TempAndWind.class);
+
+        Double yourWind = tempAndWind.getWind().getSpeed();
+        Double yourTemp = tempAndWind.getMain().getTemp();
+
+        String gardenerAlert= tempAndWind.GardenerAllert(yourWind, yourTemp);
+
+        model.addAttribute("yourWind", yourWind);
+        model.addAttribute("yourTemp", yourTemp);
+        model.addAttribute("yourLat", yourLat);
+        model.addAttribute("yourLon", yourLon);
+        model.addAttribute("gardenerAlert", gardenerAlert);
+        model.addAttribute("firstName", firstName);
+    }
 
 }
